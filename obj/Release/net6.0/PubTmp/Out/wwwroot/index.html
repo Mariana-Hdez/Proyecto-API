@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Consulta de ventas por mes</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DASHBOARD</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Venta por producto</a>
+                    <a class="nav-link" href="/grafica.html">Ventas por fecha</a>
+                    <a class="nav-link" href="/Productos.html">Ventas por año</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Consulta de ventas por mes</h1>
+
+        <div class="form-group">
+
+            <label for="productName">Nombre de producto:</label>
+            <select id="lista" class="form-select">
+                <option selected value="">Seleccione nombre del producto</option>
+
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="startDate">Fecha de inicio:</label>
+            <input type="number" min="1900" max="3000" id="year" name="year" class="form-control">
+        </div>
+        <button onclick="getSalesBreakdown()" class="btn btn-primary">Consultar</button>
+
+        <div class="container d-flex justify-content-center align-items-center">
+            <div id="chartContainer" class="mt-5 w-100" style="height: 40vh;"></div>
+        </div>
+
+    </div>
+    <div id="dashboard_div">
+        <div id="programmatic_dashboard_div" style="border: 1px solid #ccc">
+            <table class="columns">
+                <tr>
+                    <td>
+                        <div id="programmatic_control_div" style="padding-left: 2em; min-width: 250px"></div>
+                        <div>
+                            <button style="margin: 1em 1em 1em 2em" onclick="changeRange();">
+                                Select range [30000, 45000]
+                            </button><br />
+                            <button style="margin: 1em 1em 1em 2em" onclick="changeOptions();">
+                                Make the pie chart 3D
+                            </button>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="programmatic_chart_div"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart', 'controls'] });
+
+
+        //Mostrar la lista de productos
+        function obtenerProductos() {
+            var url = "/product";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(info => {
+                    info.forEach(r => {
+                        const html = '<option value="' + r.productName + '"> ' + r.productName + ' </option>'
+                        $("#lista").append(html)
+                        console.log(r)
+                    })
+                })
+        }
+
+        obtenerProductos();
+
+        function getSalesBreakdown() {
+            const productName = document.getElementById("lista").value;
+            const year = document.getElementById("year").value;
+
+
+            const url = `/Product/SalesBreakdownByMonth?productName=${productName}&year=${year}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+
+        function displayResults(data) {
+            const chartData = [['Mes', 'Ventas Totales']];
+
+            data.forEach(item => {
+                chartData.push([item.month.toString(), item.totalSales]);
+            });
+
+            const chartDataTable = google.visualization.arrayToDataTable(chartData);
+
+            const options = {
+                title: 'Comportamiento en ventas por mes',
+                chartArea: { width: '80%', height: '70%' },
+                hAxis: { title: 'Mes' },
+                vAxis: { title: 'Ventas Totales' },
+                legend: 'none'
+            };
+
+            var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+            const chart = new google.visualization.ColumnChart(document.getElementById('chartContainer'));
+            chart.draw(chartDataTable, options);
+
+            var programmaticSlider = new google.visualization.ControlWrapper({
+                'controlType': 'NumberRangeFilter',
+                'containerId': 'programmatic_control_div',
+                'options': {
+                    'filterColumnLabel': 'Ventas Totales',
+                    'ui': { 'labelStacking': 'vertical' }
+                }
+            });
+
+            var programmaticChart = new google.visualization.ChartWrapper({
+                'chartType': 'PieChart',
+                'containerId': 'programmatic_chart_div',
+                'options': {
+                    'width': 300,
+                    'height': 300,
+                    'legend': 'none',
+                    'chartArea': { 'left': 15, 'top': 15, 'right': 0, 'bottom': 0 },
+                    'pieSliceText': 'value'
+                }
+            });
+            dashboard.bind(programmaticSlider, programmaticChart);
+            dashboard.draw(chartData);
+
+            changeRange = function () {
+                programmaticSlider.setState({ 'lowValue': 30000, 'highValue': 40000 });
+                programmaticSlider.draw();
+            };
+
+            changeOptions = function () {
+                programmaticChart.setOption('is3D', true);
+                programmaticChart.draw();
+            };
+        }
+    </script>
+</body>
+
+</html>

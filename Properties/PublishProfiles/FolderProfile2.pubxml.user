@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Sitios</_PublishTargetUrl>
+    <History>True|2023-06-07T03:36:09.3730017Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="wwwroot/grafica.html">
+      <publishTime>05/31/2023 14:10:37</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

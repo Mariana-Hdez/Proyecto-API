@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "Hash": "YtXx7hLcLtElYQUanvBd18EC/9YNPUmCLLWkKeu7isY=",
+  "Source": "APIWebNWind",
+  "BasePath": "_content/APIWebNWind",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "APIWebNWind\\wwwroot",
+      "Source": "APIWebNWind",
+      "ContentRoot": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\",
+      "BasePath": "_content/APIWebNWind",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\grafica.html",
+      "SourceId": "APIWebNWind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\",
+      "BasePath": "_content/APIWebNWind",
+      "RelativePath": "grafica.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\grafica.html"
+    },
+    {
+      "Identity": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\graficas.js",
+      "SourceId": "APIWebNWind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\",
+      "BasePath": "_content/APIWebNWind",
+      "RelativePath": "graficas.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\graficas.js"
+    },
+    {
+      "Identity": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\index.html",
+      "SourceId": "APIWebNWind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\",
+      "BasePath": "_content/APIWebNWind",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\Productos.html",
+      "SourceId": "APIWebNWind",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Mariana\\Downloads\\APIWebNWind\\wwwroot\\",
+      "BasePath": "_content/APIWebNWind",
+      "RelativePath": "Productos.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Productos.html"
+    }
+  ]
+}
